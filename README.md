@@ -45,9 +45,9 @@ To participate in a group space, call enter_group_space() and call
 leave_group_space() to leave it. Sending a text message is done via the
 send_group_chat_message() method:
 
-    chat.enter_group_space(space_id)
-    chat.send_group_chat_message("Hello, world!")
-    chat.leave_group_space()
+    await chat.enter_group_space(space_id)
+    await chat.send_group_chat_message("Hello, world!")
+    await chat.leave_group_space()
 
 To receive messages from the joined group space, you need to register a callback
 method with add_chat_listener(). The callback takes three parameters:
