@@ -21,6 +21,7 @@ class SpacesWebSocket:
         self.sio = socketio.AsyncClient()
         self.bind_events()
         self.connect_future = None
+        self.subscribe_future = None
 
     def bind_events(self):
         self.sio.on('connect', self.on_connect)
@@ -64,6 +65,7 @@ class SpacesWebSocket:
 
     def on_channel_subscribed(self, message):
         logging.info("Received channel subscribed: %s", str(message))
+        self.subscribe_future.set_result(True)
 
     def on_message_sent(self, message):
         logging.info("Received message: %s", str(message))
@@ -83,7 +85,9 @@ class SpacesWebSocket:
         payload = {
             'channel': channel
         }
+        self.subscribe_future = Future()
         await self.sio.emit("SUBSCRIBE_CHANNEL", payload, namespace='/chat')
+        await self.subscribe_future
 
     async def send_unsubscribe_space(self, space_id):
         payload = {
