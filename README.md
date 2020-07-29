@@ -43,7 +43,7 @@ websocket are asynchronous and must be called using the await keyword:
 
 To participate in a group space, call enter_group_space() and call
 leave_group_space() to leave it. Sending a text message is done via the
-send_group_chat_message(method):
+send_group_chat_message() method:
 
     chat.enter_group_space(space_id)
     chat.send_group_chat_message("Hello, world!")
@@ -54,6 +54,8 @@ method with add_chat_listener(). The callback takes three parameters:
 * body_text is the usually HTML formatted text of the message
 * sender is a dictionary containing information about user that sent the message
 * space is a dictionary containing details about that space
+
+Example:
 
     def on_chat_message(body_text, sender, space):
         print('{} said {} in {}'.format(sender['title'], body_text, space['title']))
